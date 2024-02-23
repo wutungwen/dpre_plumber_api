@@ -1,9 +1,14 @@
 # dpre_plumber_api
+
+こちらのQiitaの記事のレポジトリです：
+
+[DockerとplumberでRの米上院議員投票解析モデルのAPIを作ってみた](https://qiita.com/Gotoubun_taiwan/items/1270573eb14f3ed34bdd)
+
 ディリクレ過程レジーム埋め込みモデルのコサイン類似度抽出用API。
 
 詳細はQiitaの記事を参考してください。
 
-# Qiitaの記事
+# 関連するQiitaの記事
 
 - [ディリクレ過程埋め込みモデルが勝手に議員の政党を発見してくれた件](https://qiita.com/Gotoubun_taiwan/items/d450c05ffe7f7f818e99)
 
