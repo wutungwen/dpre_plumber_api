@@ -56,7 +56,7 @@ rc_df_with_id_test_all_one_id <- sample(
 rc_df_with_id_test_balanced <- rc_df_with_id_test_all[c(rc_df_with_id_test_all_zero_id, rc_df_with_id_test_all_one_id),]
 
 
-data_dper_list <- list(
+data_dpre_list <- list(
   N = nrow(rc_df_with_id[train_id,]),
   P = 5,
   senator_type = nrow(senator_master),
@@ -74,23 +74,23 @@ data_dper_list <- list(
 )
 
 
-m_senate_dper_init <- cmdstanr::cmdstan_model("estimation/senate_dper.stan",
+m_senate_dpre_init <- cmdstanr::cmdstan_model("estimation/senate_dpre.stan",
                                               cpp_options = list(
                                                 stan_threads = TRUE
                                               )
 )
 
-m_senate_dper_estimate <- m_senate_dper_init$variational(
+m_senate_dpre_estimate <- m_senate_dpre_init$variational(
   seed = 12345,
   threads = 6,
   iter = 50000,
   init = 20,
-  data = data_dper_list
+  data = data_dpre_list
 )
 
-m_senate_dper_summary <- m_senate_dper_estimate$summary()
+m_senate_dpre_summary <- m_senate_dpre_estimate$summary()
 
-cos_sim_dper_df <- m_senate_dper_summary |>
+cos_sim_dpre_df <- m_senate_dpre_summary |>
   dplyr::filter(stringr::str_detect(variable, "cos_sim")) |>
   dplyr::mutate(
     senator_id_list = purrr::map(
@@ -120,7 +120,7 @@ cos_sim_dper_df <- m_senate_dper_summary |>
     )
   )
 
-eta_dper_df <- m_senate_dper_summary |>
+eta_dpre_df <- m_senate_dpre_summary |>
   dplyr::filter(stringr::str_detect(variable, "eta")) |>
   dplyr::mutate(
     senator_id_list = purrr::map(
@@ -137,6 +137,6 @@ eta_dper_df <- m_senate_dper_summary |>
   ) |>
   dplyr::left_join(senator_master, by = "senator_id")
 
-saveRDS(cos_sim_dper_df, "parameters/cos_sim_dper_df.obj")
+saveRDS(cos_sim_dpre_df, "parameters/cos_sim_dpre_df.obj")
 
-saveRDS(eta_dper_df, "parameters/eta_dper_df.obj")
+saveRDS(eta_dpre_df, "parameters/eta_dpre_df.obj")
