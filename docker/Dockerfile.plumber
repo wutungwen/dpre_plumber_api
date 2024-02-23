@@ -1,0 +1,18 @@
+FROM rstudio/plumber
+
+WORKDIR /api
+
+RUN mkdir parameters
+RUN mkdir plumber
+
+COPY parameters/* parameters/
+COPY plumber/* plumber/
+
+RUN apt-get update && apt-get install -y \
+    libssl-dev \
+    libcurl4-openssl-dev
+
+# Install R packages
+RUN install2.r dplyr
+
+ENTRYPOINT ["Rscript", "plumber/run_plumber.R"]
